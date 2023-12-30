@@ -6,24 +6,37 @@ namespace Code.Infrastructure
 {
     public interface ICameraService
     {
+        float HalfVerticalSize { get; }
+        float HalfHorizontalSize { get; }
         Vector2 ToWorldPoint(Vector2 displayPosition);
     }
     
     public class CameraService : ICameraService
     {
-        private Camera MainCamera => Camera.main;
+        private readonly IDisplaySizeService _displaySizeService;
         
-        public Vector2 ToWorldPoint(Vector2 displayPosition)
+        public float HalfVerticalSize { get; set; }
+        public float HalfHorizontalSize { get; set; }
+        private Camera MainCamera => Camera.main;
+
+        public CameraService(IDisplaySizeService displaySizeService)
         {
-            var target = InDisplay(MainCamera.ScreenToWorldPoint(Input.mousePosition));
-            return target;
+            _displaySizeService = displaySizeService;
+            _displaySizeService.DisplayResized += OnDisplaySizeResized;
         }
+
+        private void OnDisplaySizeResized()
+        {
+            HalfVerticalSize = MainCamera.orthographicSize;
+            HalfHorizontalSize = HalfVerticalSize * _displaySizeService.Width / _displaySizeService.Height;
+        }
+
+        public Vector2 ToWorldPoint(Vector2 displayPosition) => 
+            InDisplay(MainCamera.ScreenToWorldPoint(Input.mousePosition));
 
         private Vector2 InDisplay(Vector3 position)
         {
-            var verticalSize = MainCamera.orthographicSize;
-            var horizontalSize = verticalSize * Screen.width / Screen.height;
-            return new Vector2(position.x.ValueInRange(-horizontalSize, horizontalSize), position.y.ValueInRange(-verticalSize, verticalSize));
+            return new Vector2(position.x.ValueInRange(-HalfHorizontalSize, HalfHorizontalSize), position.y.ValueInRange(-HalfVerticalSize, HalfVerticalSize));
         }
     }
 }

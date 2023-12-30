@@ -10,6 +10,11 @@ namespace Code.Tools
             return Math.Max(Math.Min(value, max), min);
         }
         
+        public static Vector2 AddX(this Vector3 value, float x)
+        {
+            return new Vector2(value.x + x, value.y);
+        }
+        
         public static Vector2 ValueInRange(this Vector2 value, Vector2 min, Vector2 max)
         {
             return new Vector2(value.x.ValueInRange(min.x, max.x), value.y.ValueInRange(min.y, max.y));

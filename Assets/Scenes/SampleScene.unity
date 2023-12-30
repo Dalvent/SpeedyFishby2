@@ -567,9 +567,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6e565169d0d544d3b577c0a5a9f94216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GameClock: {fileID: 626848163671317402, guid: e10af39f250009c4c8699430efc9ea00, type: 3}
   PlayerPrefab: {fileID: 496461058332902903, guid: 8fc62e8b4ad271847862dcd6fe97ddd8, type: 3}
   PlayerSpawnLocation: {fileID: 2142067565}
-  EnemyPrefab: {fileID: 0}
+  EnemyPrefab: {fileID: 1695538725372635863, guid: 7d8c5b7450035404082935e37b6242b6, type: 3}
 --- !u!4 &1181688788
 Transform:
   m_ObjectHideFlags: 0
