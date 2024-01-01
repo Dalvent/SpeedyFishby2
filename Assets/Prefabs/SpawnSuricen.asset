@@ -13,4 +13,4 @@ MonoBehaviour:
   m_Name: SpawnSuricen
   m_EditorClassIdentifier: 
   ObstaclePrefab: {fileID: 1695538725372635863, guid: 7d8c5b7450035404082935e37b6242b6, type: 3}
-  OffsetX: 0
+  OffsetX: 1

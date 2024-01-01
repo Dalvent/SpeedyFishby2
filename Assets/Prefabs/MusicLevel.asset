@@ -14,15 +14,27 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Music: {fileID: 8300000, guid: 4de59196746f3c04e8ce5097a3f814ad, type: 3}
   SpawnObstacleTimeEvents:
-  - _time: 1
+  - _time: 0.3
     ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
     randomLocation: 1
-  - _time: 2
+  - _time: 0.7
     ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
     randomLocation: 2
-  - _time: 3
+  - _time: 1
     ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
     randomLocation: 4
-  - _time: 4
+  - _time: 1.3
     ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
     randomLocation: 3
+  - _time: 1.5
+    ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
+    randomLocation: 2
+  - _time: 1.8
+    ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
+    randomLocation: 0
+  - _time: 2
+    ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
+    randomLocation: 0
+  - _time: 2.4
+    ObstacleSpawnData: {fileID: 11400000, guid: 545712f554936da4f94f53a006621f54, type: 2}
+    randomLocation: 0
