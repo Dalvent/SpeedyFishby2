@@ -46,7 +46,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _LaserSmothness: 5.8
-    - _LaserThickness: 22.07
+    - _LaserThickness: 19.1
     m_Colors:
     - _Color: {r: 6.8831816, g: 2.8544486, b: 1.4610528, a: 1}
     - _LaserSpeed: {r: 2.96, g: 0, b: 0, a: 0}

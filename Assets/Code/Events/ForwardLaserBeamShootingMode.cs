@@ -1,5 +1,6 @@
 using Code.Obsticles.LaserBeamState;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Code.Events
 {

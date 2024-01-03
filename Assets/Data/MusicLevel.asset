@@ -61,42 +61,14 @@ MonoBehaviour:
     _randomSpeedMultiplayer: {x: 0.09825688, y: 0.20825689}
     GhostSpawnerData: {fileID: 11400000, guid: 40cbf4866a9c92e4f8f5d7a9fdf96bc9, type: 2}
   SpawnLaserBeamMachineTimeEvents:
-  - _time: 0.79
+  - _time: 1.91
     SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
-    Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
+    Mode: {fileID: 11400000, guid: 0d2e558e0cc2c144d9a0dc520cb5e529, type: 2}
     Position: 0
     AppearTime: 0.2
     PrepareTime: 0.5
-    ShootingTime: 0.5
-  - _time: 1.29
-    SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
-    Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
-    Position: 2
-    AppearTime: 0.2
-    PrepareTime: 0.5
-    ShootingTime: 0.5
-  - _time: 1.79
-    SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
-    Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
-    Position: 1
-    AppearTime: 0.2
-    PrepareTime: 0.5
-    ShootingTime: 0.5
-  - _time: 3.29
-    SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
-    Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
-    Position: 0
-    AppearTime: 0.2
-    PrepareTime: 0.5
-    ShootingTime: 0.5
-  - _time: 3.79
-    SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
-    Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
-    Position: 2
-    AppearTime: 0.2
-    PrepareTime: 0.5
-    ShootingTime: 0.5
-  - _time: 4.79
+    ShootingTime: 1
+  - _time: 5
     SpawnData: {fileID: 11400000, guid: 6cf153c7c10c1f34991d3194b5c7c741, type: 2}
     Mode: {fileID: 11400000, guid: 2e9623483eb553345ae425e1c35e91c1, type: 2}
     Position: 1
