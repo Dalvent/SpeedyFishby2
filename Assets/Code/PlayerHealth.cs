@@ -1,18 +1,23 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Code;
 using UnityEngine;
 
-public class PlayerHealth : MonoBehaviour
+namespace Code
 {
-    public PlayerMover Mover;
-    public event Action Died;
-
-    private void OnCollisionEnter2D(Collision2D other)
+    public class PlayerHealth : MonoBehaviour, IHealth
     {
-        Mover.enabled = false;
-        Died?.Invoke();
-        Destroy(gameObject);
+        public PlayerMover Mover;
+        public event Action Died;
+
+        public void TakeDamage()
+        {
+            Die();
+        }
+    
+        private void Die()
+        {
+            Mover.enabled = false;
+            Died?.Invoke();
+            Destroy(gameObject);
+        }
     }
 }

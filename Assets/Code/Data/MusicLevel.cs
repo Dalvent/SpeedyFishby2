@@ -7,6 +7,11 @@ namespace Code.Data
     public class MusicLevel : ScriptableObject
     {
         public AudioClip Music;
+        public GameObject BackgroundPrefab;
+        public float StartBackgroundSpeed;
+
         public SpawnObstacleTimeEvent[] SpawnObstacleTimeEvents;
+        public SpawnGhostTimeEvent[] SpawnGhostTimeEvents;
+        public SpawnLaserBeamMachineTimeEvent[] SpawnLaserBeamMachineTimeEvents;
     }
 }

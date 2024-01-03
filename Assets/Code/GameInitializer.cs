@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Data;
 using Code.Infrastructure;
 using Unity.Mathematics;
 using UnityEngine;
@@ -8,16 +9,20 @@ namespace Code
 {
     public class GameInitializer : MonoBehaviour
     {
+        private const string PlayerSpawnPositionTag = "PlayerSpawnPosition";
+        
         private readonly IDisplaySizeService _displaySizeService;
         private readonly ISectoredGameFiled _sectoredGameFiled;
         private readonly ICameraService _cameraService;
         private readonly IInputService _inputService;
         private readonly IGameFactory _gameFactory;
 
-        public GameObject GameClock;
-        public GameObject PlayerPrefab;
-        public Transform PlayerSpawnLocation;
-        private GameClock _gameClock;
+        private Transform _playerSpawner;
+        
+        public GameObject MusicLevelScrollerPrefab;
+        public MusicLevel MusicLevel;
+        private MusicLevelScroller _musicLevelScroller;
+        private BackgroundScroller _background;
 
         public GameInitializer()
         {
@@ -25,33 +30,49 @@ namespace Code
             _cameraService = new CameraService(_displaySizeService);
             _sectoredGameFiled = new SectoredGameFiled(_cameraService);
             _inputService = new InputService();
-            _gameFactory = new GameFactory();
+            _gameFactory = new GameFactory(_cameraService, _inputService);
         }
 
         private void Awake()
         {
-            InitializeGameClock();
+            _gameFactory.WarmUp();
+            
+            _playerSpawner = GameObject.FindGameObjectWithTag(PlayerSpawnPositionTag).transform;
+
+            InitializeBackground();
+            InitializeMusicLevelScroller();
+            InitializeHud();
             InitializePlayer();
         }
 
-        private void InitializeGameClock()
+        private void InitializeHud()
         {
-            GameObject instantiate = Instantiate(GameClock, Vector3.zero, quaternion.identity);
-            _gameClock = instantiate.GetComponent<GameClock>();
-            _gameClock.Construct(_gameFactory, _sectoredGameFiled);
+            _gameFactory.CreateHud(_musicLevelScroller);
+        }
+
+        private void InitializeBackground()
+        {
+            _background = Instantiate(MusicLevel.BackgroundPrefab, Vector3.zero, quaternion.identity)
+                .GetComponent<BackgroundScroller>();
+        }
+
+        private void InitializeMusicLevelScroller()
+        {
+            GameObject instantiate = Instantiate(MusicLevelScrollerPrefab, Vector3.zero, quaternion.identity);
+            _musicLevelScroller = instantiate.GetComponent<MusicLevelScroller>();
+            _musicLevelScroller.Construct(_gameFactory, _sectoredGameFiled, MusicLevel, _background);
         }
 
         private void InitializePlayer()
         {
-            GameObject instantiate = Instantiate(PlayerPrefab, PlayerSpawnLocation.position, quaternion.identity);
-            instantiate.GetComponent<PlayerMover>().Construct(_cameraService, _inputService);
+            GameObject instantiate = _gameFactory.CreatePlayer(_playerSpawner.position);
             instantiate.GetComponent<PlayerHealth>().Died += OnPlayerDied;
         }
 
         private void OnPlayerDied()
         {
-            _gameClock.enabled = false;
-            _gameClock.MusicAudioSource.Stop();
+            _musicLevelScroller.enabled = false;
+            _musicLevelScroller.MusicAudioSource.Stop();
         }
     }
 }

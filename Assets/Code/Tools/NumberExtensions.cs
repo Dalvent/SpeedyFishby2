@@ -24,5 +24,10 @@ namespace Code.Tools
         {
             return new Vector3(value.x.ValueInRange(min.x, max.x), value.y.ValueInRange(min.y, max.y));
         }
+        
+        public static Vector3 Abs(this Vector3 value) 
+        {
+            return new Vector3(Mathf.Abs(value.x), Mathf.Abs(value.y), Mathf.Abs(value.z));
+        }
     }
 }
