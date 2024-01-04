@@ -20,6 +20,7 @@ namespace Code.Events
 
         public Pool<PooledForwardBombFacade> BombPool { get; }
         public Pool<PooledLaserBeamMachineFacade> LaserBeamMachinePool { get; }
+        //public Pool<PooledLaserBeamMachineFacade> LaserBeamMachinePool { get; }
 
         public TimeEventSlider(MusicLevelScroller musicLevelScroller, MusicLevel musicLevel, IGameFactory gameFactory, ISectoredGameFiled sectoredGameFiled)
         {

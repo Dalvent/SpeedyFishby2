@@ -19,41 +19,28 @@ namespace Code.Events
         OnlyBottom
     }
 
-    [Serializable]
-    public class SpawnObstacleTimeEvent : ITimeEvent
+
+    public abstract class SpawnObstacleTimeEvent : ITimeEvent
     {
         [SerializeField] private float _time;
         
         [MinMaxSlider(0,10)] 
         [SerializeField] private Vector2 _randomSpeedMultiplayer = Vector2.one;
-        
-        [MinMaxSlider(0,3)] 
-        [SerializeField] private Vector2 _randomSizeMultiplayer = Vector2.one;
     
         public ObstacleSpawnData ObstacleSpawnData;
         public RandomLocation RandomLocation ;
-        
         public float Time => _time;
-
+        
         public void Apply(TimeEventSlider slider)
         {
-            var position = GeneratePosition(slider.SectoredGameFiled);
-            var spawned = slider.BombPool.Rent();
-            spawned.transform.position = position;
-            spawned.ForwardObstacle.Speed = GenerateSpeed(slider);
-            
-            MakeRandomResize(spawned.transform);
+            var spawned = Spawn(slider);
+            spawned.Speed = GenerateSpeed(slider);
+            spawned.transform.position = GeneratePosition(slider.SectoredGameFiled);
         }
 
-        private void MakeRandomResize(Transform target)
-        {
-            if (_randomSizeMultiplayer.x == 1 && _randomSizeMultiplayer.y == 1)
-                return;
-
-            target.localScale *= Random.Range(_randomSizeMultiplayer.x, _randomSizeMultiplayer.y);
-        }
+        protected abstract ForwardObstacle Spawn(TimeEventSlider slider);
         
-        public float GenerateSpeed(TimeEventSlider slider)
+        private float GenerateSpeed(TimeEventSlider slider)
         {
             if (_randomSpeedMultiplayer.x == 1 && _randomSpeedMultiplayer.y == 1)
                 return slider.MusicLevel.StartBackgroundSpeed;
@@ -61,7 +48,7 @@ namespace Code.Events
             var multiplayer = Random.Range(_randomSpeedMultiplayer.x, _randomSpeedMultiplayer.y);
             return slider.MusicLevelScroller.Speed * multiplayer;
         }
-
+        
         private Vector2 GeneratePosition(ISectoredGameFiled sectoredGameFiled)
         {
             (float from, float to) = RandomSectorRange(GetSectorsByLocation(sectoredGameFiled));
@@ -93,6 +80,14 @@ namespace Code.Events
                 default:
                     throw new ArgumentOutOfRangeException();
             }
+        }
+    }
+
+    public class SpawnBonusTimeEvent : SpawnObstacleTimeEvent
+    {
+        protected override ForwardObstacle Spawn(TimeEventSlider slider)
+        {
+            return null;
         }
     }
 }

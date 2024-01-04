@@ -10,7 +10,7 @@ namespace Code.Data
         public GameObject BackgroundPrefab;
         public float StartBackgroundSpeed;
 
-        public SpawnObstacleTimeEvent[] SpawnObstacleTimeEvents;
+        public SpawnBombTimeEvent[] SpawnObstacleTimeEvents;
         public SpawnGhostTimeEvent[] SpawnGhostTimeEvents;
         public SpawnLaserBeamMachineTimeEvent[] SpawnLaserBeamMachineTimeEvents;
     }
