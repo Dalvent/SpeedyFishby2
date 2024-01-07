@@ -7,7 +7,11 @@ namespace Code
     {
         public PlayerMover Mover;
         public event Action Died;
-
+        
+        public void ActivateOneDamageShield()
+        {
+        }
+        
         public void TakeDamage()
         {
             Die();

@@ -6,6 +6,7 @@ TagManager:
   tags:
   - PlayerSpawnPosition
   - LaserMachine
+  - GlobalVolume
   layers:
   - Default
   - TransparentFX

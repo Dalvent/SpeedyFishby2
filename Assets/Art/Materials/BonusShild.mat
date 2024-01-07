@@ -74,7 +74,7 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _PulsePower: 76.3
+    - _PulsePower: 75.23
     m_Colors:
-    - _Color: {r: 0.38092297, g: 0.69918245, b: 1.170372, a: 0}
+    - _Color: {r: 2.4115345, g: 0.70880574, b: 0.05687581, a: 0}
   m_BuildTextureStacks: []

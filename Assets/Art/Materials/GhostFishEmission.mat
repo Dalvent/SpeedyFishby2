@@ -45,10 +45,10 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlowIntensitity: 4.58
+    - _GlowIntensitity: 5.83
     - _UseAlpha: 1
     m_Colors:
-    - _GlowColor: {r: 1, g: 0.42745098, b: 0, a: 0}
+    - _GlowColor: {r: 1, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
 --- !u!114 &5107587954985025707
 MonoBehaviour:

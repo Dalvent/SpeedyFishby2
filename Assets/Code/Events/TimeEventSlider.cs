@@ -11,7 +11,7 @@ namespace Code.Events
 {
     public class TimeEventSlider
     {
-        private readonly SortedSet<ITimeEvent> _eventQueue;
+        private readonly List<ITimeEvent> _eventQueue;
 
         public MusicLevelScroller MusicLevelScroller { get; }
         public MusicLevel MusicLevel { get; }
@@ -20,7 +20,7 @@ namespace Code.Events
 
         public Pool<PooledForwardBombFacade> BombPool { get; }
         public Pool<PooledLaserBeamMachineFacade> LaserBeamMachinePool { get; }
-        //public Pool<PooledLaserBeamMachineFacade> LaserBeamMachinePool { get; }
+        //public Pool<PooledFac> LaserBeamMachinePool { get; }
 
         public TimeEventSlider(MusicLevelScroller musicLevelScroller, MusicLevel musicLevel, IGameFactory gameFactory, ISectoredGameFiled sectoredGameFiled)
         {
@@ -29,10 +29,12 @@ namespace Code.Events
             SectoredGameFiled = sectoredGameFiled;
             Factory = gameFactory;
 
-            _eventQueue = new SortedSet<ITimeEvent>(new TimeEventComparer());
+            _eventQueue = new List<ITimeEvent>();
+            
             _eventQueue.AddRange(musicLevel.SpawnObstacleTimeEvents);
             _eventQueue.AddRange(musicLevel.SpawnGhostTimeEvents);
             _eventQueue.AddRange(musicLevel.SpawnLaserBeamMachineTimeEvents);
+            _eventQueue.Sort((t1, t2) => t1.Time.CompareTo(t2.Time));
             
             BombPool = new Pool<PooledForwardBombFacade>(CreatePooledBomb);
             BombPool.WarmUp(30);
@@ -66,14 +68,6 @@ namespace Code.Events
                 closestEvent.Apply(this);
                 _eventQueue.Remove(closestEvent);
             }
-        }
-    }
-
-    public class TimeEventComparer : IComparer<ITimeEvent>
-    {
-        public int Compare(ITimeEvent x, ITimeEvent y)
-        {
-            return x.Time.CompareTo(y.Time);
         }
     }
 }

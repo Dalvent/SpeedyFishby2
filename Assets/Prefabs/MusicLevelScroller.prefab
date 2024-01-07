@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 1785337444815929309}
   - component: {fileID: 8849558071939454501}
   - component: {fileID: -8583796054044536760}
+  - component: {fileID: 5585811055318146293}
   m_Layer: 0
   m_Name: MusicLevelScroller
   m_TagString: Untagged
@@ -46,7 +47,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MusicAudioSource: {fileID: -8583796054044536760}
-  MusicLevel: {fileID: 11400000, guid: 39479e0efa7bbe744837b26b8ee27c03, type: 2}
 --- !u!82 &-8583796054044536760
 AudioSource:
   m_ObjectHideFlags: 0
@@ -143,3 +143,18 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5585811055318146293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 626848163671317402}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75bff78c15c8ba540b7b14396053d410, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  audioSource: {fileID: -8583796054044536760}
+  globalVolume: {fileID: 0}
+  IntensityRange: {x: 0, y: 1}

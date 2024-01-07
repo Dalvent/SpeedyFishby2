@@ -21,11 +21,14 @@ namespace Code.Obsticles.LaserBeamState
             machine.ShowLaser();
             
             _startRotation = machine.transform.rotation;
-            _targetRotation = Quaternion.Euler(0, 0, 90);
+            _targetRotation = Quaternion.Euler(0, 0, _angel);
         }
 
-        public void Exit(LaserBeamMachine machine) =>
+        public void Exit(LaserBeamMachine machine)
+        {
             machine.HideLaser();
+            _startRotation = machine.transform.rotation;
+        }
 
         public void Update(LaserBeamMachine machine)
         {

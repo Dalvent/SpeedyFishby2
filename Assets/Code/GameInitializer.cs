@@ -3,6 +3,7 @@ using Code.Data;
 using Code.Infrastructure;
 using Unity.Mathematics;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.Serialization;
 
 namespace Code
@@ -22,7 +23,7 @@ namespace Code
         public GameObject MusicLevelScrollerPrefab;
         public MusicLevel MusicLevel;
         private MusicLevelScroller _musicLevelScroller;
-        private BackgroundScroller _background;
+        private BackgroundScroller _backgroundScroller;
 
         public GameInitializer()
         {
@@ -52,15 +53,20 @@ namespace Code
 
         private void InitializeBackground()
         {
-            _background = Instantiate(MusicLevel.BackgroundPrefab, Vector3.zero, quaternion.identity)
+            var background = Instantiate(MusicLevel.BackgroundPrefab, Vector3.zero, quaternion.identity)
                 .GetComponent<BackgroundScroller>();
+            _backgroundScroller = background;
         }
 
         private void InitializeMusicLevelScroller()
         {
             GameObject instantiate = Instantiate(MusicLevelScrollerPrefab, Vector3.zero, quaternion.identity);
             _musicLevelScroller = instantiate.GetComponent<MusicLevelScroller>();
-            _musicLevelScroller.Construct(_gameFactory, _sectoredGameFiled, MusicLevel, _background);
+            _musicLevelScroller.Construct(_gameFactory, _sectoredGameFiled, MusicLevel, _backgroundScroller);
+            _backgroundScroller.GetComponent<BackgroundAudio>().audioSource = _musicLevelScroller.MusicAudioSource;
+
+            Volume component = GameObject.FindWithTag("GlobalVolume").GetComponent<Volume>();
+            instantiate.GetComponent<AudioReactSaturation>().globalVolume = component;
         }
 
         private void InitializePlayer()
