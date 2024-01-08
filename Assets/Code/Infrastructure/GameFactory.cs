@@ -1,4 +1,8 @@
 ﻿using System;
+using Code.Characters;
+using Code.Characters.LaserBeam;
+using Code.Data;
+using Code.Events;
 using UnityEngine;
 using Object = UnityEngine.Object;
 
@@ -6,30 +10,31 @@ namespace Code.Infrastructure
 {
     public interface IGameFactory
     {
+        Transform PlayerTransform { get; }
+        
         void WarmUp();
-        GameObject CreateBomb(Vector2 position);
         GameObject CreatePlayer(Vector2 position);
-        GameObject CreateHud(MusicLevelScroller musicLevelScroller);
-        GameObject CreateGhost(Vector2 position, float speed);
-        GameObject CreateLaserBeamMachine();
+        GameObject CreateBomb(Vector2 position);
+        GameObject CreateBonus(Vector2 position);
+        GameObject CreateGhost(Vector2 position);
+        GameObject CreateLaserBeamMachine(Vector2 position);
     }
 
     public class GameFactory : IGameFactory
     {
-        private const string BombResource = "Bomb";
-        private const string PlayerResource = "Player";
-        private const string GhostResource = "Ghost";
-        private const string LaserBeamMachineResource = "LaserBeamMachine";
+        private const string PlayerPrefabResource = "Player";
         
         private readonly ICameraService _cameraService;
         private readonly IInputService _inputService;
-        
-        private GameObject _playerPrefab;
-        private GameObject _bombPrefab;
-        private GameObject _ghostPrefab;
-        private Transform _playerTransform;
-        private GameObject _laserBeamMachine;
 
+        public Transform PlayerTransform { get; private set; }
+
+        private GameObject _playerPrefab;
+        private GhostSpawner _ghostSpawner;
+        private LaserBeamMachineSpawner _laserBeamMachineSpawner;
+        private FlyForwardSpawner _bombSpawner;
+        private FlyForwardSpawner _bonusShildSpawner;
+        
         public GameFactory(ICameraService cameraService, IInputService inputService)
         {
             _cameraService = cameraService;
@@ -38,46 +43,44 @@ namespace Code.Infrastructure
         
         public void WarmUp()
         {
-            _playerPrefab = Resources.Load<GameObject>(PlayerResource);
-            _bombPrefab = Resources.Load<GameObject>(BombResource);
-            _ghostPrefab = Resources.Load<GameObject>(GhostResource);
-            _laserBeamMachine = Resources.Load<GameObject>(LaserBeamMachineResource);
-        }
-
-        public GameObject CreateBomb(Vector2 position)
-        {
-            GameObject gameObject = Object.Instantiate(_bombPrefab, position, Quaternion.identity);
-            gameObject.GetComponent<OutboundDisabler>().Construct(_cameraService);
-            return gameObject;
+            _playerPrefab = Resources.Load<GameObject>(PlayerPrefabResource);
+            
+            _laserBeamMachineSpawner = Resources.Load<LaserBeamMachineSpawner>("Spawner/LaserBeamMachineSpawner");
+            _ghostSpawner = Resources.Load<GhostSpawner>("Spawner/GhostSpawner");
+            _bombSpawner = Resources.Load<FlyForwardSpawner>("Spawner/BombSpawner");
+            _bonusShildSpawner = Resources.Load<FlyForwardSpawner>("Spawner/BonusShieldSpawner");
         }
 
         public GameObject CreatePlayer(Vector2 position)
         {
             GameObject gameObject = Object.Instantiate(_playerPrefab, position, Quaternion.identity);
-            _playerTransform = gameObject.transform;
+            PlayerTransform = gameObject.transform;
             gameObject.GetComponent<PlayerMover>().Construct(_cameraService, _inputService);
             return gameObject;
         }
-        
-        public GameObject CreateHud(MusicLevelScroller musicLevelScroller)
+
+        public GameObject CreateBomb(Vector2 position)
         {
-            // NotImplemented
-            return null;
+            var bomb = _bombSpawner.SpawnAt(position, Quaternion.identity);
+            bomb.Construct(_cameraService);
+            return bomb.gameObject;
         }
 
-        public GameObject CreateGhost(Vector2 position, float speed)
+        public GameObject CreateBonus(Vector2 position)
         {
-            GameObject gameObject = Object.Instantiate(_ghostPrefab, position, Quaternion.identity);
-            MoveToPlayer moveToPlayer = gameObject.GetComponent<MoveToPlayer>();
-            moveToPlayer.Construct(_playerTransform);
-            moveToPlayer.Speed = speed;
-            return gameObject;
+            var bonus = _bonusShildSpawner.SpawnAt(position, Quaternion.identity);
+            bonus.Construct(_cameraService);
+            return bonus.gameObject;
         }
 
-        public GameObject CreateLaserBeamMachine()
+        public GameObject CreateGhost(Vector2 position)
         {
-            GameObject gameObject = Object.Instantiate(_laserBeamMachine);
-            return gameObject;
+            return _ghostSpawner.SpawnAt(position, Quaternion.identity).gameObject;
+        }
+
+        public GameObject CreateLaserBeamMachine(Vector2 position)
+        {
+            return _laserBeamMachineSpawner.SpawnAt(position, Quaternion.identity).gameObject;
         }
     }
 }

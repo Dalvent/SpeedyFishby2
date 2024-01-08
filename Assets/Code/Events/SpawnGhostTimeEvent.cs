@@ -1,8 +1,10 @@
 using System;
+using Code.Characters;
 using Code.Data;
 using Code.Infrastructure;
 using GD.MinMaxSlider;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
 namespace Code.Events
@@ -16,12 +18,17 @@ namespace Code.Events
         [SerializeField] private Vector2 _randomSpeedMultiplayer = Vector2.one;
         
         public float Time => _time;
-        public GhostSpawnerData GhostSpawnerData; 
+        [FormerlySerializedAs("GhostSpawnerData")] public GhostSpawner ghostSpawner; 
         
         public void Apply(TimeEventSlider slider)
         {
             var position = GeneratePosition(slider.SectoredGameFiled);
-            slider.Factory.CreateGhost(position, GenerateSpeed(slider));
+            float generateSpeed = GenerateSpeed(slider);
+            
+            var ghost = slider.Factory.CreateGhost(position);
+            MoveTo moveTo = ghost.GetComponent<MoveTo>();
+            moveTo.Target = slider.Factory.PlayerTransform;
+            moveTo.Speed = generateSpeed;
         }
 
         public float GenerateSpeed(TimeEventSlider slider)
@@ -36,7 +43,7 @@ namespace Code.Events
         
         private Vector2 GeneratePosition(ISectoredGameFiled sectoredGameFiled)
         {
-            return new Vector2(-sectoredGameFiled.ForwardX + GhostSpawnerData.OffsetX, 0);
+            return new Vector2(-sectoredGameFiled.ForwardX, 0);
         }
     }
 }

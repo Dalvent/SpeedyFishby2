@@ -46,6 +46,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _GlowIntensitity: 5.83
+    - _GlowIntensity: 3
     - _UseAlpha: 1
     m_Colors:
     - _GlowColor: {r: 1, g: 0, b: 0, a: 0}

@@ -13,5 +13,6 @@ namespace Code.Data
         public SpawnBombTimeEvent[] SpawnObstacleTimeEvents;
         public SpawnGhostTimeEvent[] SpawnGhostTimeEvents;
         public SpawnLaserBeamMachineTimeEvent[] SpawnLaserBeamMachineTimeEvents;
+        public SpawnBonusTimeEvent[] SpawnBonusTimeEvent;
     }
 }

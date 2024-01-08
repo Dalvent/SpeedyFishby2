@@ -58,7 +58,8 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
-    - _GlowIntensitity: 2.74
+    - _GlowIntensitity: 0.5
+    - _GlowIntensity: 1
     - _UseAlpha: 1
     m_Colors:
     - _GlowColor: {r: 1, g: 0, b: 0.06575391, a: 0}

@@ -1,4 +1,5 @@
 ﻿using System;
+using Code.Characters;
 using GD.MinMaxSlider;
 using UnityEngine;
 using Random = UnityEngine.Random;
@@ -6,16 +7,16 @@ using Random = UnityEngine.Random;
 namespace Code.Events
 {
     [Serializable]
-    public class SpawnBombTimeEvent : SpawnObstacleTimeEvent
+    public class SpawnBombTimeEvent : SpawnFlyForwardTimeEvent
     {
         [MinMaxSlider(0,3)] 
         [SerializeField] private Vector2 _randomSizeMultiplayer = Vector2.one;
 
-        protected override ForwardObstacle Spawn(TimeEventSlider slider)
+        protected override FlyForward Spawn(TimeEventSlider slider, Vector2 position)
         {
-            var spawned = slider.BombPool.Rent();
-            MakeRandomResize(spawned.transform);
-            return spawned.ForwardObstacle;
+            var bomb = slider.Factory.CreateBomb(position);
+            MakeRandomResize(bomb.transform);
+            return bomb.GetComponent<FlyForward>();
         }
 
         private void MakeRandomResize(Transform target)

@@ -42,15 +42,9 @@ namespace Code
 
             InitializeBackground();
             InitializeMusicLevelScroller();
-            InitializeHud();
             InitializePlayer();
         }
-
-        private void InitializeHud()
-        {
-            _gameFactory.CreateHud(_musicLevelScroller);
-        }
-
+        
         private void InitializeBackground()
         {
             var background = Instantiate(MusicLevel.BackgroundPrefab, Vector3.zero, quaternion.identity)
